@@ -1,0 +1,33 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.log
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Environment variables / secrets
+.env
+
+# OS / editor files
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Bytecode
+*.so
+
+# Docker
+*.tar
+__docker_build__/
+
+# VS Code
+.vscode/
+.history/
+
+# Models (optional: keep only if you want them versioned)
+*.h5
+*.pb
