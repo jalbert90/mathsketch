@@ -31,3 +31,4 @@ __docker_build__/
 # Models (optional: keep only if you want them versioned)
 *.h5
 *.pb
+*.keras
