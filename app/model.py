@@ -26,7 +26,7 @@ def preprocess_image_bytes(image_bytes: bytes) -> np.ndarray:
 
     return img_array
 
-def predict_digit(image_bytes: np.ndarray) -> int:
+def predict_digit(image_bytes: bytes) -> int:
     img_array = preprocess_image_bytes(image_bytes)
     probability_array = model.predict(img_array)
     

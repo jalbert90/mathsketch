@@ -1,7 +1,3 @@
-from os import environ
-
-environ['TF_CPP_MIN_LOG_LEVEL'] = '1'
-
 from keras.datasets import mnist
 from keras.utils import to_categorical
 from keras import Sequential, layers
