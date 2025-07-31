@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from datetime import datetime, timezone
 import base64
-from model import predict_digit
+from .model import predict_digit
 
 app = FastAPI()
 
