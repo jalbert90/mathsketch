@@ -8,7 +8,8 @@ from sqlalchemy.ext.declarative import declarative_base
 # Connection resources
 engine = create_engine("postgresql+psycopg2://user:password@localhost:5432/predictions_db")
 
-# Call `Session` (sessionmaker.__call__()) to make a new `Session` object bound to an engine and configuration.
+# Call `Session` (`Session()` = `sessionmaker.__call__(Session)`)
+# to make a new `Session` object bound to an engine and configuration.
 Session = sessionmaker(bind=engine, autoflush=False)
 
 # Base class for ORM tables
