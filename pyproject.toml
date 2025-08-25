@@ -5,7 +5,7 @@ dependencies = [
 	"fastapi~=0.116.1",
 	"uvicorn~=0.35.0",
 	"pillow~=11.3.0",
-	"psychopg2-binary~=2.9.10",
+	"psycopg2-binary~=2.9.10",
 	"sqlalchemy~=2.0.42"
 ]
 
@@ -21,3 +21,6 @@ gpu = [
 [build-system]
 requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["mathsketch"]
