@@ -13,3 +13,4 @@ mathsketch.egg-info/SOURCES.txt
 mathsketch.egg-info/dependency_links.txt
 mathsketch.egg-info/requires.txt
 mathsketch.egg-info/top_level.txt
+tests/test_gpu.py
