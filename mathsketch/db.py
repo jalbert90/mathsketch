@@ -10,7 +10,7 @@ engine = create_engine("postgresql+psycopg2://user:password@localhost:5432/predi
 
 # Call `Session` (`Session()` = `sessionmaker.__call__(Session)`)
 # to make a new `Session` object bound to an engine and configuration.
-Session = sessionmaker(bind=engine, autoflush=False)
+SessionLocal = sessionmaker(bind=engine, autoflush=False)
 
 # Base class for ORM tables
 Base = declarative_base()
