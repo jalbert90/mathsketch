@@ -1,10 +1,20 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 from pydantic import BaseModel
 from datetime import datetime, timezone
 import base64
 from mathsketch.model import predict_digit
+from mathsketch.db import SessionLocal
+from sqlalchemy.orm import Session
+from mathsketch.crud import save_prediction
 
 app = FastAPI()
+
+def get_db():
+    try:
+        db = SessionLocal()
+        yield db
+    finally:
+        db.close()
 
 class PredictRequest(BaseModel):
     image_data: str
@@ -14,7 +24,8 @@ class PredictResponse(BaseModel):
     timestamp: str
 
 @app.post("/predict", response_model=PredictResponse)
-def predict_endpoint_actions(request: PredictRequest):
+def predict_endpoint_actions(request: PredictRequest, db: Session = Depends(get_db)):
+    # FastAPI inspects the function signature ^, prepares the arguments, and then passes them upon calling.
     print(f"Base64 encoded length: {len(request.image_data)} bytes")
 
     try:
@@ -24,4 +35,8 @@ def predict_endpoint_actions(request: PredictRequest):
         print(f"Error decoding image data: {e}")
         raise
 
-    return PredictResponse(prediction=predict_digit(img_bytes), timestamp=datetime.now(timezone.utc).isoformat())
+    pred = predict_digit(img_bytes)
+    stamp = datetime.now(timezone.utc).isoformat()
+    save_prediction(db, img_bytes, pred)
+
+    return PredictResponse(prediction=pred, timestamp=stamp)
