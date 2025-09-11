@@ -5,7 +5,7 @@ import base64
 from mathsketch.model import predict_digit
 from mathsketch.db import SessionLocal
 from sqlalchemy.orm import Session
-from mathsketch.crud import save_prediction
+from mathsketch.crud import save_prediction, delete_prediction
 
 app = FastAPI()
 
@@ -36,8 +36,9 @@ def predict_endpoint_actions(request: PredictRequest, db: Session = Depends(get_
         raise
 
     # pred = predict_digit(img_bytes)
-    pred = 3
-    stamp = datetime.now(timezone.utc).isoformat()
+    pred = 4
+    stamp = datetime.now(timezone.utc).isoformat()      # Prediction made timestamp
     save_prediction(db, img_bytes, pred)
+    delete_prediction(db, 1)
 
     return PredictResponse(prediction=pred, timestamp=stamp)

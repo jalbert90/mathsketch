@@ -3,4 +3,4 @@ from mathsketch.models import Prediction     # Importing results in class being 
 
 # Create the table in the PostgreSQL database.
 # Pass `engine` to tell SQLAlchemy where to create the tables.
-Base.metadata.createall(bind=engine)
+Base.metadata.create_all(bind=engine)
