@@ -23,6 +23,15 @@ class PredictResponse(BaseModel):
     prediction: int
     timestamp: str
 
+# class QueryRequest(BaseModel):
+#     id: int
+
+class QueryResponse(BaseModel):
+    id: int
+    image_data: str
+    prediction: int
+    timestamp: str
+
 @app.post("/predict", response_model=PredictResponse)
 def predict_endpoint_actions(request: PredictRequest, db: Session = Depends(get_db)):
     # FastAPI inspects the function signature ^, prepares the arguments, and then passes them upon calling.
@@ -39,6 +48,10 @@ def predict_endpoint_actions(request: PredictRequest, db: Session = Depends(get_
     pred = 4
     stamp = datetime.now(timezone.utc).isoformat()      # Prediction made timestamp
     save_prediction(db, img_bytes, pred)
-    delete_prediction(db, 1)
+    # delete_prediction(db, 1)
 
     return PredictResponse(prediction=pred, timestamp=stamp)
+
+@app.get("/query", response_model=QueryResponse)
+def query():
+    pass
