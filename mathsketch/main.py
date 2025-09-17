@@ -37,9 +37,6 @@ class PredictionSchema(BaseModel):
 class DeleteRequest(BaseModel):
     ids: list[int]
 
-class HistoryRequest(BaseModel):
-    limit: int
-
 @app.post("/predict", response_model=PredictResponse)
 def predict_digit(request: PredictRequest, db: Session = Depends(get_db)):
     # FastAPI inspects the function signature ^, prepares the arguments, and then passes them upon calling.
@@ -69,6 +66,5 @@ def delete_predictions(request: DeleteRequest, db: Session=Depends(get_db)):
         delete_prediction(db, id)
 
 @app.get("/history", response_model=list[PredictionSchema])
-def get_history(request: HistoryRequest, db: Session = Depends(get_db)):
-    pass
-    # return get_predictions(db, request.limit)
+def get_history(limit: int = 10, db: Session = Depends(get_db)):
+    return get_predictions(db, limit)
