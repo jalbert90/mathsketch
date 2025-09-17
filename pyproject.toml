@@ -1,0 +1,26 @@
+[project]
+name = "mathsketch"
+version = "0.1.0"
+dependencies = [
+	"fastapi~=0.116.1",
+	"uvicorn~=0.35.0",
+	"pillow~=11.3.0",
+	"psycopg2-binary~=2.9.10",
+	"sqlalchemy~=2.0.42"
+]
+
+[project.optional-dependencies]
+cpu = [
+	"tensorflow~=2.19.0"
+]
+
+gpu = [
+	"tensorflow[and-cuda]~=2.19.0"
+]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["mathsketch"]

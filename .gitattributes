@@ -1,2 +1,4 @@
 # Handle line endings automatically
+# Convert to LF (\n) for commit
+# Convert to local default: LF (\n) on Linux and CRLF (\r\n) on Windows
 * text=auto

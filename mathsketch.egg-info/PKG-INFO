@@ -1,0 +1,12 @@
+Metadata-Version: 2.4
+Name: mathsketch
+Version: 0.1.0
+Requires-Dist: fastapi~=0.116.1
+Requires-Dist: uvicorn~=0.35.0
+Requires-Dist: pillow~=11.3.0
+Requires-Dist: psycopg2-binary~=2.9.10
+Requires-Dist: sqlalchemy~=2.0.42
+Provides-Extra: cpu
+Requires-Dist: tensorflow~=2.19.0; extra == "cpu"
+Provides-Extra: gpu
+Requires-Dist: tensorflow[and-cuda]~=2.19.0; extra == "gpu"

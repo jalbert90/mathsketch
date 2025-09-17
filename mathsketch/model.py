@@ -3,7 +3,7 @@ import numpy as np
 import io
 from PIL import Image
 
-model = load_model('app/trained_model.keras')
+model = load_model('mathsketch/trained_model.keras')
 
 def preprocess_image_bytes(image_bytes: bytes) -> np.ndarray:
     # Wrap the sequence of bytes (image_bytes) with a container that exposes read, write, seek, etc., file operations.

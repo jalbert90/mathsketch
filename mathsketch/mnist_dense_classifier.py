@@ -15,4 +15,4 @@ model = Sequential([
 
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 model.fit(x_train, y_train, epochs=5, validation_split=0.2)
-model.save('app/trained_model.keras')
+model.save('mathsketch/trained_model.keras')
