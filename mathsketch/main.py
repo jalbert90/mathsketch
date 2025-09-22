@@ -6,10 +6,14 @@ from mathsketch.model import predict_digit
 from mathsketch.db import SessionLocal
 from sqlalchemy.orm import Session
 from mathsketch.crud import save_prediction, get_all_predictions, delete_prediction, get_predictions
-from sqlalchemy import select
-from mathsketch.models import Prediction
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 
 app = FastAPI()
+
+# Mount ASGI sub-app at the endpoint /static to serve files from static directory upon GET request
+# to /static/... endpoints.
+app.mount("/static", StaticFiles(directory="static"), "static")
 
 def get_db():
     try:
@@ -68,3 +72,8 @@ def delete_predictions(request: DeleteRequest, db: Session=Depends(get_db)):
 @app.get("/history", response_model=list[PredictionSchema])
 def get_history(limit: int = 10, db: Session = Depends(get_db)):
     return get_predictions(db, limit)
+
+@app.get("/")
+def get_main_page():
+    # Serve main page upon GET request to / endpoint.
+    return FileResponse("static/index.html")
