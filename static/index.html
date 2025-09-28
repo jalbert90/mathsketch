@@ -1,7 +1,21 @@
 <!DOCTYPE html>
-
-
-<button id="test">test</button>
-test
-
-<script src="static/index_script.js"></script>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Draw a Digit</title>
+    </head>
+    <body>
+        <div class="card">
+            <h1>Draw a Digit (0-9)</h1>
+            <div id="canvas-wrap">
+                <canvas id="draw-canvas" tabindex="0"></canvas>
+                <div class="controls">
+                    <button id="clear"></button>
+                    <button id="submit"></button>
+                </div>
+            </div>
+        </div>
+        <script src="static/index_script.js"></script>
+    </body>
+</html>
