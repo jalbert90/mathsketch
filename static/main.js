@@ -19,6 +19,15 @@ canvas.heigth = canvas.style.height * dpr;
 // Drawing full length of canvas in CSS units should fill the buffer
 ctx.scale(dpr, dpr)
 
+// Get position of mouse relative to top-left corner of canvas
+// Inc y is down, inc x is right ??
+function get_mouse_canvas_coordinates(mouse_event){
+    const rect = canvas.getBoundingClientRect();
+    const x = rect.left;
+    const y = rect.top;
+    return [x, y];
+}
+
 function begin_drawing() {
 
 }
