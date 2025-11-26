@@ -1,5 +1,5 @@
-const canvas = document.getElementById("draw-canvas");  // Canvas
-const ctx = canvas.getContext("2d");                    // Drawing info
+const canvas = document.getElementById('draw-canvas');  // Canvas
+const ctx = canvas.getContext('2d');                    // Drawing info
 
 // The devicePixelRatio is used to make the drawing buffer have the same number
 // of pixels as the width of the canvas in real pixels.
@@ -7,7 +7,7 @@ const DPR = window.devicePixelRatio;
 
 // Config (CSS pixels)
 const CANVAS_SIZE = 280;
-const LINE_WIDTH = 5;
+const LINE_WIDTH = 35;
 
 // Set the visible size of the canvas in CSS pixels.
 canvas.style.width = CANVAS_SIZE + 'px';
@@ -21,26 +21,44 @@ canvas.style.height = CANVAS_SIZE + 'px';
 // <meta name="viewport" content="width=device-width, initial-scale=1">.**
 // device-width = width of screen in CSS pixels
 // width = how big the browswer pretends the viewport is
-canvas.width = canvas.style.width * DPR;
-canvas.heigth = canvas.style.height * DPR;
+canvas.width = CANVAS_SIZE * DPR;
+canvas.height = CANVAS_SIZE * DPR;          // Round this ?
 
 // Scale the buffer coordinate system to match the CSS coordinate system.
 // Scaling by the devicePixelRatio ensures that drawing a full canvas size
 // (in CSS units) correctly fills the underlying pixel buffer.
-ctx.scale(DPR, DPR)
+ctx.scale(DPR, DPR);
 
 // Set the stroke width in CSS pixels.
 // The lineWidth is originally measured in unscaled buffer pixels.
 // Scaling by the DPR makes lineWidth measured in CSS pixels.
-ctx.lineWidth = 5;
+ctx.lineWidth = LINE_WIDTH;
 
-function begin_drawing(event) {
+// State variables:
+let drawing = false;
+
+function onPointerDown(event) {
     // Get the position of the mouse relative to top-left corner of canvas.
     // y increases downward, and x increases to the right.
     const x = event.offsetX;
     const y = event.offsetY;
+    drawing = true;
     ctx.beginPath();
     ctx.moveTo(x, y);
 }
 
-canvas.addEventListener("mousedown", )
+function onPointerMove(event) {
+    if (!drawing) return;
+    const x = event.offsetX;
+    const y = event.offsetY;
+    ctx.lineTo(x, y);
+    ctx.stroke();
+}
+
+function onPointerUp(event) {
+    drawing = false;
+}
+
+canvas.addEventListener("pointerdown", onPointerDown);
+canvas.addEventListener("pointermove", onPointerMove);
+canvas.addEventListener("pointerup", onPointerUp);
