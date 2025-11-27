@@ -1,6 +1,7 @@
 const canvas = document.getElementById('draw-canvas');  // Canvas
 const ctx = canvas.getContext('2d');                    // Drawing info
 const clearButton = document.getElementById('clear-btn');
+const submitButton = document.getElementById('submit-btn');
 
 // The devicePixelRatio is used to make the drawing buffer have the same number
 // of pixels as the width of the canvas in real pixels.
@@ -8,7 +9,7 @@ const DPR = window.devicePixelRatio;
 
 // Config (CSS pixels)
 const CANVAS_SIZE = 280;
-const LINE_WIDTH = 50;
+const LINE_WIDTH = 15;
 
 // Set the visible size of the canvas in CSS pixels.
 canvas.style.width = CANVAS_SIZE + 'px';
@@ -72,7 +73,15 @@ function endLine(event) {
     drawing = false;
 }
 
-canvas.addEventListener("pointerdown", beginLine);
-canvas.addEventListener("pointermove", incrementLine);
-canvas.addEventListener("pointerup", endLine);
-clearButton.addEventListener("pointerdown", onClearButtonPress);
+function onSubmitButtonPress(event) {
+    // invert colors
+    // scale
+    // get base64
+    // send
+}
+
+canvas.addEventListener('pointerdown', beginLine);
+canvas.addEventListener('pointermove', incrementLine);
+canvas.addEventListener('pointerup', endLine);
+clearButton.addEventListener('pointerdown', onClearButtonPress);
+submitButton.addEventListener('pointerdown', onSubmitButtonPress);
