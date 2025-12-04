@@ -10,6 +10,7 @@ const DPR = window.devicePixelRatio;
 // Config (CSS pixels)
 const CANVAS_SIZE = 280;
 const LINE_WIDTH = 15;
+const PREDICT_ENDPOINT = '/predict';
 
 // Set the visible size of the canvas in CSS pixels.
 canvas.style.width = CANVAS_SIZE + 'px';
@@ -74,10 +75,47 @@ function endLine(event) {
 }
 
 function onSubmitButtonPress(event) {
-    // invert colors
-    // scale
-    // get base64
-    // send
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const data = imageData.data;
+
+    for (let i = 0; i < data.length; i += 4) {
+        data[i] = 255 - data[i];
+        data[i + 1] = 255 - data[i + 1];
+        data[i + 2] = 255 - data[i + 2];
+    }
+
+    ctx.putImageData(imageData, 0, 0);
+    const dataURL_PNG = canvas.toDataURL();
+    const base64String = dataURL_PNG.split(',')[1];
+
+    const predictRequest = {
+        imageData: base64String
+    };
+
+    const predictRequestPayload = JSON.stringify(predictRequest);
+    console.log(predictRequestPayload);
+
+    // scale?
+}
+
+async function sendImageData(imageJSON) {
+    try {
+        const response = await fetch(PREDICT_ENDPOINT, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: imageJSON
+        });
+
+        if (!response.ok) {
+            throw new error(`Oh shit!`);
+        }
+
+        const result = await response.json;
+    } catch (error) {
+        console.log(`Error: ${error}`);
+    }
 }
 
 canvas.addEventListener('pointerdown', beginLine);
