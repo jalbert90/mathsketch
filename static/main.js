@@ -92,27 +92,27 @@ function onSubmitButtonPress(event) {
         imageData: base64String
     };
 
-    const predictRequestPayload = JSON.stringify(predictRequest);
-    console.log(predictRequestPayload);
+    const predictRequestJSON = JSON.stringify(predictRequest);
+    console.log(predictRequestJSON);
 
     // scale?
 }
 
-async function sendImageData(imageJSON) {
+async function sendPredictRequest(predictRequestJSON) {
     try {
         const response = await fetch(PREDICT_ENDPOINT, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: imageJSON
+            body: predictRequestJSON
         });
 
         if (!response.ok) {
-            throw new error(`Oh shit!`);
+            throw new Error(`Oh shit! This happened -> ${response.status}`);
         }
 
-        const result = await response.json;
+        const result = await response.json();
     } catch (error) {
         console.log(`Error: ${error}`);
     }
