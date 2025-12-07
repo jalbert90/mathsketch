@@ -89,11 +89,13 @@ function onSubmitButtonPress(event) {
     const base64String = dataURL_PNG.split(',')[1];
 
     const predictRequest = {
-        imageData: base64String
+        image_data: base64String
     };
 
     const predictRequestJSON = JSON.stringify(predictRequest);
     console.log(predictRequestJSON);
+
+    sendPredictRequest(predictRequestJSON);
 
     // scale?
 }

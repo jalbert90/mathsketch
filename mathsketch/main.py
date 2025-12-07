@@ -42,7 +42,7 @@ class DeleteRequest(BaseModel):
     ids: list[int]
 
 @app.post("/predict", response_model=PredictResponse)
-def predict_digit(request: PredictRequest, db: Session = Depends(get_db)):
+def predict(request: PredictRequest, db: Session = Depends(get_db)):
     # FastAPI inspects the function signature ^, prepares the arguments, and then passes them upon calling.
     print(f"Base64 encoded length: {len(request.image_data)} bytes")
 
@@ -53,10 +53,11 @@ def predict_digit(request: PredictRequest, db: Session = Depends(get_db)):
         print(f"Error decoding image data: {e}")
         raise
 
-    # pred = predict_digit(img_bytes)
-    pred = 4
+    pred = predict_digit(img_bytes)
     stamp = datetime.now(timezone.utc).isoformat()      # Prediction made at this time.
-    save_prediction(db, img_bytes, pred)
+    # save_prediction(db, img_bytes, pred)
+
+    print(f'Prediction = {pred}')
 
     return PredictResponse(prediction=pred, timestamp=stamp)
 
