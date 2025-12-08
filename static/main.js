@@ -9,7 +9,7 @@ const DPR = window.devicePixelRatio;
 
 // Config (CSS pixels)
 const CANVAS_SIZE = 280;
-const LINE_WIDTH = 15;
+const LINE_WIDTH = 30;
 const PREDICT_ENDPOINT = '/predict';
 
 // Set the visible size of the canvas in CSS pixels.
