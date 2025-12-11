@@ -55,7 +55,7 @@ def predict(request: PredictRequest, db: Session = Depends(get_db)):
 
     pred = predict_digit(img_bytes)
     stamp = datetime.now(timezone.utc).isoformat()      # Prediction made at this time.
-    # save_prediction(db, img_bytes, pred)
+    save_prediction(db, img_bytes, pred)
 
     print(f'Prediction = {pred}')
 
