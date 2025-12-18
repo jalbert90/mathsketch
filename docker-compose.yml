@@ -14,3 +14,11 @@ services:
 
 volumes:
   postgres_data:
+
+  api:
+    container_name: mathsketch_container
+    build: .
+    env_file:
+      - .env.docker
+    depends_on:
+      - db

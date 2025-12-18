@@ -8,6 +8,8 @@ from sqlalchemy.orm import Session
 from mathsketch.crud import save_prediction, get_all_predictions, delete_prediction, get_predictions
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
+import os
+import uvicorn
 
 app = FastAPI()
 
@@ -78,3 +80,11 @@ def get_history(limit: int = 10, db: Session = Depends(get_db)):
 def get_main_page():
     # Serve main page upon GET request to / endpoint.
     return FileResponse("static/index.html")
+
+if __name__ == '__main__':
+    port = int(os.environ.get('PORT', 8080))
+    uvicorn.run(
+        'mathsketch.main:app',
+        host='0.0.0.0',
+        port=port
+    )
