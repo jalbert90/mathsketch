@@ -7,13 +7,8 @@ services:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
       POSTGRES_DB: mathsketch_db
-    ports:
-      - "5432:5432"
     volumes:
-      - postgres_data:/var/postgresql/data
-
-volumes:
-  postgres_data:
+      - postgres_data:/var/lib/postgresql/data
 
   api:
     container_name: mathsketch_container
@@ -22,3 +17,8 @@ volumes:
       - .env.docker
     depends_on:
       - db
+    ports:
+      - "8080:8080"
+
+volumes:
+  postgres_data:
