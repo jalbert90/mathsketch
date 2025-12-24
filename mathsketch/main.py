@@ -9,7 +9,6 @@ from mathsketch.crud import save_prediction, get_all_predictions, delete_predict
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 import os
-import uvicorn
 
 app = FastAPI()
 
@@ -82,6 +81,8 @@ def get_main_page():
     return FileResponse("static/index.html")
 
 if __name__ == '__main__':
+    import mathsketch.init_db    
+    import uvicorn
     port = int(os.environ.get('PORT', 8080))
     uvicorn.run(
         'mathsketch.main:app',
