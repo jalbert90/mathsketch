@@ -11,6 +11,8 @@ __pycache__/
 
 # Environment variables / secrets
 .env
+.env*
+pg_creds
 
 # OS / editor files
 .DS_Store
@@ -23,6 +25,7 @@ Thumbs.db
 # Docker
 *.tar
 __docker_build__/
+docker-compose.local.yml
 
 # VS Code
 .vscode/

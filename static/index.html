@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Draw a Digit</title>
+        <link rel="stylesheet" href="static/style.css">
+    </head>
+    <body>
+        <div class="card" role="application" aria-label="Digit drawing area">
+            <h1>Draw a Digit (0-9)</h1>
+            <div id="canvas-wrap">
+                <canvas id="draw-canvas" aria-label="Drawing canvas" tabindex="0"></canvas>
+                <div class="controls">
+                    <button id="clear-btn" title="Clear the canvas">Clear</button>
+                    <button id="submit-btn" class="primary" title="Send drawing to /predict">Submit</button>
+                    <span id="result" aria-live="polite"></span>
+                </div>
+            </div>
+        </div>
+        <script type="module" src="static/main.js"></script>
+    </body>
+</html>
