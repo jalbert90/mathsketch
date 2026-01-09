@@ -9,6 +9,8 @@ def get_db_url():
     DB_URL = os.getenv('DATABASE_URL')
     
     if DB_URL:
+        if DB_URL.startswith('postgres://'):
+            DB_URL = DB_URL.replace('postgres://', 'postgresql://', 1)
         return DB_URL
     
     DB_HOST = os.environ['DB_HOST']
@@ -17,6 +19,7 @@ def get_db_url():
     DB_USER = os.environ['DB_USER']
     DB_PASSWORD = os.environ['DB_PASSWORD']
 
+    # Specifying the driver with +psycopg2 isn't necessary b/c default driver is picked.
     return f'postgresql+psycopg2://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
 
 # `Engine` used by `Session` to talk to DBAPI (Pyscopg2)
