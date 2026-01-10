@@ -2,7 +2,7 @@ from fastapi import FastAPI, Depends
 from pydantic import BaseModel
 from datetime import datetime, timezone
 import base64
-# from mathsketch.model import predict_digit
+# from mathsketch.inference import predict_digit
 from mathsketch.db import SessionLocal
 from sqlalchemy.orm import Session
 from mathsketch.crud import save_prediction, get_all_predictions, delete_prediction, get_predictions

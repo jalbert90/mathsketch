@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from mathsketch.models import Prediction
+from mathsketch.schemas import Prediction
 from sqlalchemy import delete, select
 
 def save_prediction(db: Session, img_data: bytes, pred: int):
