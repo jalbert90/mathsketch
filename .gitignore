@@ -35,4 +35,7 @@ docker-compose.local.yml
 *.h5
 *.pb
 *.keras
-saved_model/
+trained_model_tf/
+
+# egg-info
+*.egg-info
