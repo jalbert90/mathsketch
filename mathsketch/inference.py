@@ -23,7 +23,7 @@ def preprocess_image_bytes(image_bytes: bytes) -> np.ndarray:
     # Reshape so that model receives the shape it expects.
     img_array = np.reshape(img_array, (1, 28, 28))
 
-    Image.fromarray(img_array[0]).save('drawn_image.png')
+    Image.fromarray(img_array[0]).save('digit-preview/drawn_image.png')
 
     img_array = img_array / 255.0
 
