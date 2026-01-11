@@ -39,3 +39,6 @@ trained_model_tf/
 
 # egg-info
 *.egg-info
+
+# Debug stuff
+drawn_image.png

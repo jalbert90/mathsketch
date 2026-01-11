@@ -2,7 +2,7 @@ from fastapi import FastAPI, Depends
 from pydantic import BaseModel
 from datetime import datetime, timezone
 import base64
-# from mathsketch.inference import predict_digit
+from mathsketch.inference import predict_digit
 from mathsketch.db import SessionLocal
 from sqlalchemy.orm import Session
 from mathsketch.crud import save_prediction, get_all_predictions, delete_prediction, get_predictions
@@ -43,7 +43,7 @@ class DeleteRequest(BaseModel):
     ids: list[int]
 
 @app.post("/predict", response_model=PredictResponse)
-def predict(request: PredictRequest, db: Session = Depends(get_db)):
+def post_predict(request: PredictRequest, db: Session = Depends(get_db)):
     # FastAPI inspects the function signature ^, prepares the arguments, and then passes them upon calling.
     print(f"Base64 encoded length: {len(request.image_data)} bytes")
 
@@ -54,8 +54,7 @@ def predict(request: PredictRequest, db: Session = Depends(get_db)):
         print(f"Error decoding image data: {e}")
         raise
 
-    # pred = predict_digit(img_bytes)
-    pred = 7
+    pred = predict_digit(img_bytes)
     stamp = datetime.now(timezone.utc).isoformat()      # Prediction made at this time.
     save_prediction(db, img_bytes, pred)
 

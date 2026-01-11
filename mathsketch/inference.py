@@ -20,7 +20,7 @@ def preprocess_image_bytes(image_bytes: bytes) -> np.ndarray:
     img_array = np.array(img)
 
     # Reshape so that model receives the shape it expects.
-    img_array = np.reshape(img_array, (1, 1, 28, 28))
+    img_array = np.reshape(img_array, (1, 28, 28))
 
     # Save for viewing and debugging
     save_path = Path('digit-preview/drawn_image.png')
@@ -28,12 +28,13 @@ def preprocess_image_bytes(image_bytes: bytes) -> np.ndarray:
     Image.fromarray(img_array[0][0]).save(save_path)
 
     img_array = img_array / 255.0
+    img_array = img_array.astype(np.float32)
     return img_array
 
 def predict_digit(image_bytes: bytes) -> int:
     img_array = preprocess_image_bytes(image_bytes)
 
-    outputs = session.run(None, {'input': img_array})
+    outputs = session.run(None, {'input_layer': img_array})
     
     # Take index of max and return.
     index_of_highest_probability = np.argmax(outputs[0])
