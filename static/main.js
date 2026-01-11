@@ -2,6 +2,7 @@ const canvas = document.getElementById('draw-canvas');  // Canvas
 const ctx = canvas.getContext('2d');                    // Drawing info
 const clearButton = document.getElementById('clear-btn');
 const submitButton = document.getElementById('submit-btn');
+const resultSpan = document.getElementById('result');
 
 // The devicePixelRatio is used to make the drawing buffer have the same number
 // of pixels as the width of the canvas in real pixels.
@@ -115,6 +116,7 @@ async function sendPredictRequest(predictRequestJSON) {
         }
 
         const result = await response.json();
+        resultSpan.textContent = result.prediction;
     } catch (error) {
         console.log(`Error: ${error}`);
     }
