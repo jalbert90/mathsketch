@@ -12,4 +12,6 @@ COPY mathsketch/ mathsketch/
 
 COPY static/ static/
 
+COPY models/trained_model.onnx models/
+
 CMD ["python", "-m", "mathsketch.main"]

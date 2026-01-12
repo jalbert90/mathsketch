@@ -2,8 +2,9 @@ from keras.models import load_model
 import numpy as np
 import io
 from PIL import Image
+from pathlib import Path
 
-model = load_model('mathsketch/trained_model.keras')
+model = load_model('models/trained_model.keras')
 
 def preprocess_image_bytes(image_bytes: bytes) -> np.ndarray:
     # Wrap the sequence of bytes (image_bytes) with a container that exposes read, write, seek, etc., file operations.
@@ -23,7 +24,9 @@ def preprocess_image_bytes(image_bytes: bytes) -> np.ndarray:
     # Reshape so that model receives the shape it expects.
     img_array = np.reshape(img_array, (1, 28, 28))
 
-    Image.fromarray(img_array[0]).save('drawn_image.png')
+    save_path = Path('digit-preview/drawn_image.png')
+    save_path.parent.mkdir(parents=True, exist_ok=True)
+    Image.fromarray(img_array[0]).save(save_path)
 
     img_array = img_array / 255.0
 
