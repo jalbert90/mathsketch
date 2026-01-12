@@ -76,5 +76,10 @@ button.primary {
     /* outline: auto; */
     text-align: center;
     font-weight: 600;
-    min-width: 120px;
+    min-width: 20px;
+}
+
+h3 {
+    /* outline: auto; */
+    margin: 0;
 }
