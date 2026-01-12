@@ -3,6 +3,8 @@ const ctx = canvas.getContext('2d');                    // Drawing info
 const clearButton = document.getElementById('clear-btn');
 const submitButton = document.getElementById('submit-btn');
 const resultSpan = document.getElementById('result');
+const payloadCanvas = document.createElement('canvas');
+const payloadCtx = payloadCanvas.getContext('2d');
 
 // The devicePixelRatio is used to make the drawing buffer have the same number
 // of pixels as the width of the canvas in real pixels.
@@ -27,6 +29,8 @@ canvas.style.height = CANVAS_SIZE + 'px';
 // width = how big the browswer pretends the viewport is
 canvas.width = Math.round(CANVAS_SIZE * DPR);
 canvas.height = Math.round(CANVAS_SIZE * DPR);
+payloadCanvas.width = Math.round(CANVAS_SIZE * DPR);
+payloadCanvas.height = Math.round(CANVAS_SIZE * DPR);
 
 // Scale the buffer coordinate system to match the CSS coordinate system.
 // Scaling by the devicePixelRatio ensures that drawing a full canvas size
@@ -47,6 +51,7 @@ let drawing = false;
 function onClearButtonPress(event) {
     ctx.fillStyle = '#FFFFFF';
     ctx.fillRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+    resultSpan.textContent = '';
 }
 
 onClearButtonPress();
@@ -85,8 +90,8 @@ function onSubmitButtonPress(event) {
         data[i + 2] = 255 - data[i + 2];
     }
 
-    ctx.putImageData(imageData, 0, 0);
-    const dataURL_PNG = canvas.toDataURL();
+    payloadCtx.putImageData(imageData, 0, 0);
+    const dataURL_PNG = payloadCanvas.toDataURL();
     const base64String = dataURL_PNG.split(',')[1];
 
     const predictRequest = {
@@ -94,8 +99,6 @@ function onSubmitButtonPress(event) {
     };
 
     const predictRequestJSON = JSON.stringify(predictRequest);
-    console.log(predictRequestJSON);
-
     sendPredictRequest(predictRequestJSON);
 
     // scale?

@@ -80,6 +80,10 @@ def get_main_page():
     # Serve main page upon GET request to / endpoint.
     return FileResponse("static/index.html")
 
+@app.get('/favicon.ico')
+def get_favicon():
+    return FileResponse('static/favicon.ico')
+
 if __name__ == '__main__':
     import mathsketch.init_db    
     import uvicorn
