@@ -24,7 +24,7 @@ def get_db_url():
 
 # `Engine` used by `Session` to talk to DBAPI (Pyscopg2)
 # Connection resources
-engine = create_engine(get_db_url())
+engine = create_engine(get_db_url(), pool_pre_ping=True)
 
 # Call `Session` (`Session()` = `sessionmaker.__call__(Session)`)
 # to make a new `Session` object bound to an engine and configuration.
