@@ -8,6 +8,8 @@ on:
     paths:
       - 'mathsketch/**'
       - 'static/**'
+      - 'requirements/runtime.txt'
+      - 'models/trained_model.onnx'
 jobs:
   deploy:
     name: Deploy app

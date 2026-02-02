@@ -1,0 +1,6 @@
+fastapi~=0.116
+pillow~=11.3
+psycopg2-binary~=2.9
+SQLAlchemy~=2.0
+uvicorn~=0.35
+onnxruntime~=1.23

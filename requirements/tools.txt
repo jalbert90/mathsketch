@@ -1,0 +1,3 @@
+# Run `pip install "pip<26"` to downgrade pip before installing pip-tools.
+
+pip-tools
