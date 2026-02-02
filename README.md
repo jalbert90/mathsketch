@@ -1,6 +1,6 @@
 # MathSketch
 
-FastAPI app hosting a MNIST digit classifier.
+FastAPI service for MNIST digit prediction.
 
 **QUICKSTART**
 
