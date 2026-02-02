@@ -1,14 +1,6 @@
 # MathSketch
 
-FastAPI service for MNIST digit prediction.
-
-**QUICKSTART**
-
-...
-
-# MathSketch
-
-MathSketch is a lightweight, cloud‑deployed math visualization and sketching service. It was originally built as a learning and exploration project around **ML‑assisted math tooling**, with an emphasis on *clean dependency boundaries*, *reproducibility*, and *fast iteration*.
+MathSketch is a lightweight, cloud‑deployed digit recognition service. It was originally built as a learning and exploration project around **ML‑assisted math tooling**, with an emphasis on *clean dependency boundaries*, *reproducibility*, and *fast iteration*.
 
 The project deliberately separates **model development and conversion** from **runtime serving**, so the deployed system stays small, stable, and predictable.
 
@@ -21,7 +13,7 @@ MathSketch is split into three distinct dependency environments:
 1. **Runtime (API / serving)**
    What actually runs in production. No TensorFlow.
 
-2. **Conversion / model tooling**
+2. **Training / Conversion**
    Offline environment for training and converting models (TensorFlow → ONNX).
 
 3. **Tooling**
@@ -35,8 +27,8 @@ This separation is intentional and enforced.
 
 The project follows a strict **intent vs artifact** model:
 
-* `*.in` files express **human intent** (allowed version ranges)
-* `*.txt` files are **machine‑generated lockfiles** (fully pinned, reproducible)
+* `*.in` files express **human intent** (allowed version ranges).
+* `*.txt` files are **machine‑generated lockfiles** (fully pinned, reproducible).
 
 You install from `*.txt`. You edit `*.in`. You never hand‑edit lockfiles.
 
@@ -49,14 +41,15 @@ mathsketch/
 ├─ requirements/
 │  ├─ runtime.in        # Runtime dependency intent (no TensorFlow)
 │  ├─ runtime.txt       # Runtime lockfile (used for dev + deploy)
-│  ├─ convert.in        # Model conversion intent (TensorFlow, tf2onnx)
-│  ├─ convert.txt       # Frozen conversion lockfile
+│  ├─ train.in          # Model training/conversion intent (TensorFlow, tf2onnx)
+│  ├─ train.txt         # Frozen training/conversion lockfile
 │  └─ tools.txt         # Tooling dependencies (pip-tools, pip version)
 │
-├─ app/                 # FastAPI application code
-├─ models/              # ONNX models used at runtime
-├─ scripts/             # Conversion / utility scripts
-├─ Dockerfile           # Deployment image (runtime only)
+├─ mathsketch/          # FastAPI application code
+├─ models/              # Keras/TF models and ONNX models used at runtime
+├─ static/              # HTML/CSS/JavaScript static files
+├─ tools/               # Training/conversion scripts
+├─ Dockerfile           # Deployment image-building process
 ├─ README.md
 └─ ...
 ```
@@ -65,11 +58,16 @@ mathsketch/
 
 ## Runtime environment (API)
 
+`.venv-runtime`
+
 The runtime environment is intentionally minimal:
 
 * FastAPI
 * ONNX Runtime
-* NumPy
+* Pillow
+* psycopg2-binary
+* SQLAlchemy
+* Uvicorn
 
 TensorFlow is **never** installed in this environment — not in dev, not in prod.
 
@@ -83,18 +81,28 @@ This is the environment used for:
 
 * Local API development
 * CI
-* Deployment (Fly.io)
+* Deployment (fly.io)
 
 ---
 
-## Model conversion environment
+## Model training/conversion environment
+
+`.venv-train`
 
 TensorFlow is used **only** for model authoring and conversion.
 
-### Install conversion deps
+### Install training/conversion deps
+
+**CPU Only:**
 
 ```bash
-pip install -r requirements/convert.txt
+pip install -r requirements/train_CPU.txt
+```
+
+**GPU:**
+
+```bash
+pip install -r requirements/train_GPU.txt
 ```
 
 This environment is:
@@ -107,11 +115,21 @@ The resulting ONNX models are what get checked in and served.
 
 ---
 
-## Dependency compilation (pip‑tools)
+## Tools environment
+
+`.venv-tools`
 
 Dependencies are locked using **pip‑tools**.
 
 ### Tooling setup
+
+1. Downgrade pip
+
+```bash
+pip install "pip<26"
+```
+
+2. Install tools
 
 ```bash
 pip install -r requirements/tools.txt
@@ -123,7 +141,8 @@ pip install -r requirements/tools.txt
 
 ```bash
 pip-compile requirements/runtime.in
-pip-compile requirements/convert.in
+pip-compile requirements/train_CPU.in
+pip-compile requirements/train_GPU.in
 ```
 
 ### Update dependencies (intentional)
@@ -181,4 +200,4 @@ This project is stable and primarily maintained as:
 
 ## License
 
-MIT (or specify otherwise)
+All Rights Reserved
