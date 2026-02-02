@@ -8,6 +8,7 @@ on:
     paths:
       - 'mathsketch/**'
       - 'static/**'
+      - 'requirements/runtime.txt'
 jobs:
   deploy:
     name: Deploy app
